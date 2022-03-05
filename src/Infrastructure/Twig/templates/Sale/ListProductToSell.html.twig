@@ -1,0 +1,40 @@
+{% extends "base.html.twig"  %}
+
+ 
+{% block body %}
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>Title</th>        
+            <th>Ex Tax <br/>Buying <br/>Price</th>
+            <th>Ex Tax <br/>Selling <br/>Price</th>
+            <th>Inc Tax <br/>Selling <br/>Price</th>
+
+            <th>Stock</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for product in productList %}
+    <tr>
+        <td>{{product.title}}</td>
+        <td>{{product.excTaxBuyingPrice}}</td>
+        <td>{{product.excTaxSellingPrice}}</td>
+        <td>{{product.incTaxSellingPrice}}</td>
+
+        
+        <td>{{product.stock}}</td>
+
+    </tr>
+        
+    {% endfor %}
+    </tbody>
+
+</table>
+
+<p><a class="btn btn-link" href="/Web/product/add">Add a product</a></p>
+
+{% endblock %}
+
+ 

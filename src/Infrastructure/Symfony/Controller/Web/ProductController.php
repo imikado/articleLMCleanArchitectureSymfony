@@ -7,8 +7,11 @@ use Domain\Gateway\CategoryGatewayInterface;
 use Domain\Gateway\ProductGatewayInterface;
 use Domain\Gateway\VATRateGatewayInterface;
 use Domain\Request\Sale\AddProductToSellRequest;
+use Domain\Request\Sale\ListProductToSellRequest;
 use Domain\Tool\Validator;
 use Domain\UseCase\Sale\AddProductToSellUseCase;
+use Domain\UseCase\Sale\ListProductToSellUseCase;
+use Infrastructure\Symfony\Presenter\Sale\ListProductToSellPresenterToHtml;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,11 +74,31 @@ class ProductController extends AbstractController{
                     $form->get($field)->addError(new FormError( join(',',$errorMessage) ));
                 }
             }
+
+            dd($response);
         }
     
 
         return $this->render('Sale/AddProductToSell.html.twig',['form'=>$form->createView()]);
 
+
+    }
+
+    /**
+     * @Route("/Web/product/list",methods={"GET"})
+     */
+    public function listAction(
+        Request $request,
+        ProductGatewayInterface $productGateway,
+        VATRateGatewayInterface $vatGateway,
+        CategoryGatewayInterface $categoryGateway,
+
+        ListProductToSellPresenterToHtml $presenter
+    ){  
+        $useCaseRequest=new ListProductToSellRequest();
+
+        $useCase=new ListProductToSellUseCase($productGateway,$vatGateway,$categoryGateway );
+        return $useCase->execute($useCaseRequest, $presenter);
 
     }
 

@@ -12,8 +12,6 @@ use Domain\Response\Sale\AddProductToSellResponse;
 use Domain\Tool\Validator;
 use Domain\Tool\ValidatorResponse;
 
-use Symfony\Component\HttpFoundation\Request;
-
 class AddProductToSellUseCase{
 
     protected ProductGatewayInterface $productGateway;
@@ -76,7 +74,7 @@ class AddProductToSellUseCase{
             if(!$productAddResponse->isStatusSuccess()){
 
                 $response->setStatusFailed();
-                $response->setFailedMessage('Error when ask to add product with Gateway');
+                $response->setFailedMessage('Error when ask to add product with Gateway:'.$productAddResponse->getFailedMessage());
                 
                 return $response;
             }

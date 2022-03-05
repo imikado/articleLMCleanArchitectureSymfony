@@ -5,7 +5,8 @@ use Domain\Entity\Product ;
 use Domain\Gateway\GatewayResponse;
 use Domain\Gateway\ProductGatewayInterface;
  
-class ProductRepository implements ProductGatewayInterface{
+class ProductRepository //implements ProductGatewayInterface
+{
 
     const PATH='/home/mika/tmp/dataDb/shopExple/product/';
 
